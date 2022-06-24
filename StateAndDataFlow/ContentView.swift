@@ -20,7 +20,13 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .padding(.top, 200)
             Spacer()
-            ButtonView(timer: timer)
+            ButtonView(name: timer.buttonTitle) {
+                timer.startTimer()
+            }
+            Spacer()
+            ButtonView(name: "Выход") {
+                DataManager.shared.exit(userManager: userManager)
+            }
             Spacer()
         }
     }
@@ -34,11 +40,12 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct ButtonView: View {
-    @ObservedObject var timer: TimeCounter
+    let name: String
+    let action: ()-> Void
     
     var body: some View {
-        Button(action: { timer.startTimer() }) {
-            Text(timer.buttonTitle)
+        Button(action: action) {
+            Text(name)
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(.white)

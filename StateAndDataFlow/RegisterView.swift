@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RegisterView: View {
-    //@State private var userName = ""
     @EnvironmentObject private var userManager: UserManager
     
     var body: some View {
@@ -19,6 +18,7 @@ struct RegisterView: View {
                     Image(systemName: "checkmark.circle")
                     Text("OK")
                 }
+                .disabled(!userManager.correctName)
             }
         }
         .padding()
@@ -26,8 +26,8 @@ struct RegisterView: View {
     
     private func registerUser() {
         if !userManager.user.name.isEmpty {
-            //user.name = userName
             userManager.user.isRegistered.toggle()
+            DataManager.shared.updateUserInformation(user: userManager.user)
         }
     }
 }

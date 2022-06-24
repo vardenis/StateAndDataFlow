@@ -21,7 +21,7 @@ final class UserManager: ObservableObject {
     }
 }
 
-struct User {
+struct User: Codable {
     var name = ""
     var isRegistered = false
 }
